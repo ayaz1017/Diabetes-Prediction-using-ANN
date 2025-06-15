@@ -1,156 +1,308 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diabetes Prediction</title>
-    <style>
-        body {
-            font-family: 'Poppins', sans-serif;
-            text-align: center;
-            padding: 20px;
-            background: url('/mnt/data/img.png') no-repeat center center/cover;
-            color: white;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diabetes Prediction</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
 
-        .container {
-            max-width: 600px;
-            margin: auto;
-            padding: 20px;
-        }
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(120deg, #0072ff 0%, #00c6ff 100%);
+      min-height: 100vh;
+      margin: 0;
+      color: #fff;
+    }
 
-        .title {
-            font-size: 36px;
-            font-weight: bold;
-            margin-bottom: 10px;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-        }
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: rgba(0, 34, 64, 0.75);
+      padding: 18px 60px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.15);
+      backdrop-filter: blur(10px);
+    }
 
-        h2 {
-            font-size: 28px;
-            animation: fadeIn 1.5s ease-in-out;
-        }
+    .navbar .logo {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #fff;
+      display: flex;
+      align-items: center;
+    }
 
-        form {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 25px;
-            border-radius: 15px;
-            display: inline-block;
-            box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.3);
-            animation: slideUp 1s ease-in-out;
-            backdrop-filter: blur(10px);
-        }
+    .navbar .logo i {
+      margin-right: 10px;
+      color: #00c6ff;
+    }
 
-        label {
-            display: block;
-            font-size: 18px;
-            margin-top: 12px;
-            color: white;
-        }
+    .navbar ul {
+      list-style: none;
+      display: flex;
+      gap: 30px;
+      margin: 0;
+      padding: 0;
+    }
 
-        input, select {
-            padding: 10px;
-            margin: 8px;
-            width: 250px;
-            border-radius: 8px;
-            border: none;
-            outline: none;
-            transition: all 0.3s ease-in-out;
-        }
+    .navbar ul li a {
+      color: #fff;
+      text-decoration: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
 
-        input:focus, select:focus {
-            transform: scale(1.05);
-            box-shadow: 0px 0px 10px white;
-        }
+    .navbar ul li a:hover {
+      color: #00c6ff;
+    }
 
-        button {
-            padding: 12px 25px;
-            background-color: #0072ff;
-            color: white;
-            border: none;
-            cursor: pointer;
-            border-radius: 8px;
-            font-size: 18px;
-            transition: 0.3s;
-            margin-top: 15px;
-            box-shadow: 0px 4px 6px rgba(0, 114, 255, 0.5);
-        }
+    .container {
+      max-width: 600px;
+      margin: 50px auto;
+      padding: 30px 25px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 25px;
+      box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.37);
+      backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.18);
+      animation: fadeIn 1s;
+    }
 
-        button:hover {
-            background-color: #0056d2;
-            transform: scale(1.1);
-            box-shadow: 0px 6px 8px rgba(0, 114, 255, 0.7);
-        }
+    .title {
+      font-size: 38px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+      color: #fff;
+    }
 
-        .result {
-            margin-top: 20px;
-            font-size: 22px;
-            font-weight: bold;
-            animation: fadeIn 1.5s ease-in-out;
-        }
+    h2 {
+      font-size: 26px;
+      margin-bottom: 25px;
+      color: #e0f7fa;
+      font-weight: 500;
+      animation: fadeIn 1.5s;
+    }
 
-        /* Animations */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
+    form {
+      background: rgba(255, 255, 255, 0.12);
+      padding: 30px 20px;
+      border-radius: 15px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      box-shadow: 0px 0px 20px rgba(255, 255, 255, 0.15);
+      animation: slideUp 1s;
+      backdrop-filter: blur(10px);
+    }
 
-        @keyframes slideUp {
-            from { transform: translateY(30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
-        }
-    </style>
+    label {
+      display: block;
+      font-size: 17px;
+      margin-top: 14px;
+      color: #fff;
+      width: 100%;
+    }
+
+    input, select {
+      padding: 10px;
+      margin: 10px 0 5px 0;
+      width: 100%;
+      border-radius: 8px;
+      border: none;
+      outline: none;
+      background: rgba(255,255,255,0.7);
+      color: #1a237e;
+      font-size: 1rem;
+      transition: all 0.3s;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+    }
+
+    input:focus, select:focus {
+      transform: scale(1.04);
+      box-shadow: 0px 0px 10px #00c6ff;
+    }
+
+    button {
+      padding: 14px 32px;
+      background: linear-gradient(90deg, #0072ff 0%, #00c6ff 100%);
+      color: white;
+      border: none;
+      cursor: pointer;
+      border-radius: 10px;
+      font-size: 18px;
+      font-weight: 600;
+      transition: 0.3s;
+      margin-top: 25px;
+      box-shadow: 0px 4px 12px rgba(0, 114, 255, 0.3);
+      letter-spacing: 1px;
+    }
+
+    button:hover {
+      background: linear-gradient(90deg, #00c6ff 0%, #0072ff 100%);
+      transform: scale(1.07);
+      box-shadow: 0px 8px 20px rgba(0, 114, 255, 0.25);
+    }
+
+    .result {
+      margin-top: 30px;
+      font-size: 23px;
+      font-weight: bold;
+      color: #fffde7;
+      background: rgba(0, 114, 255, 0.25);
+      border-radius: 10px;
+      padding: 18px 10px;
+      animation: fadeIn 1.5s;
+      box-shadow: 0 2px 12px rgba(0,114,255,0.09);
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(40px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+
+    @media (max-width: 700px) {
+      .navbar {
+        flex-direction: column;
+        padding: 12px 10px;
+      }
+      .container {
+        margin: 30px 5px;
+        padding: 15px 5px;
+      }
+      form {
+        padding: 18px 2px;
+      }
+      .title {
+        font-size: 28px;
+      }
+      h2 {
+        font-size: 20px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-    <div class="container">
-        <div class="title">Diabetes Prediction System</div>
-        <h2>Enter Your Details</h2>
-        <form action="/predict" method="post">
-            <label for="gender">Gender</label>
-            <select name="gender" required>
-                <option value="1">Male</option>
-                <option value="0">Female</option>
-            </select>
-
-            <label for="age">Age</label>
-            <input type="text" name="age" placeholder="Enter Age" required>
-
-            <label for="hypertension">Hypertension</label>
-            <select name="hypertension" required>
-                <option value="1">Yes</option>
-                <option value="0">No</option>
-            </select>
-
-            <label for="heart_disease">Heart Disease</label>
-            <select name="heart_disease" required>
-                <option value="1">Yes</option>
-                <option value="0">No</option>
-            </select>
-
-            <label for="smoking_history">Smoking History</label>
-            <select name="smoking_history" required>
-                <option value="0">No Info</option>
-                <option value="1">Current Smoker</option>
-                <option value="2">Former Smoker</option>
-                <option value="3">Ever Smoker</option>
-                <option value="4">Never Smoked</option>
-                <option value="5">Not Current</option>
-            </select>
-
-            <label for="bmi">BMI</label>
-            <input type="text" name="bmi" placeholder="Enter BMI" required>
-
-            <label for="hba1c">HbA1c Level</label>
-            <input type="text" name="hba1c" placeholder="Enter HbA1c Level" required>
-
-            <label for="glucose">Blood Glucose Level</label>
-            <input type="text" name="glucose" placeholder="Enter Blood Glucose Level" required>
-
-            <br>
-            <button type="submit">Predict</button>
-        </form>
-
-        <div class="result">{{ prediction_text }}</div>
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">
+      <i class="fa-solid fa-heart-pulse"></i> DiaPredict
     </div>
+    <ul>
+      <li><a href="#" onclick="showSection('home')">Home</a></li>
+      <li><a href="#" onclick="showSection('prediction')">Prediction</a></li>
+      <li><a href="#" onclick="showSection('about')">About Diabetes</a></li>
+      <li><a href="#" onclick="showSection('contact')">Contact</a></li>
+    </ul>
+  </div>
+
+  <!-- Home Section -->
+  <div id="home" class="container section active">
+    <div class="title">Welcome to DiaPredict</div>
+    <h2>Your AI-based Diabetes Prediction Assistant</h2>
+    <p>Use our smart system to check your diabetes risk with just a few health inputs.</p>
+  </div>
+
+  <!-- Prediction Section -->
+  <div id="prediction" class="container section">
+    <div class="title">Diabetes Prediction System</div>
+    <h2>Enter Your Details</h2>
+    <form action="/predict" method="post">
+      <label for="gender">Gender</label>
+      <select name="gender" required>
+        <option value="1">Male</option>
+        <option value="0">Female</option>
+      </select>
+
+      <label for="age">Age</label>
+      <input type="text" name="age" placeholder="Enter Age" required>
+
+      <label for="hypertension">Hypertension</label>
+      <select name="hypertension" required>
+        <option value="1">Yes</option>
+        <option value="0">No</option>
+      </select>
+
+      <label for="heart_disease">Heart Disease</label>
+      <select name="heart_disease" required>
+        <option value="1">Yes</option>
+        <option value="0">No</option>
+      </select>
+
+      <label for="smoking_history">Smoking History</label>
+      <select name="smoking_history" required>
+        <option value="0">No Info</option>
+        <option value="1">Current Smoker</option>
+        <option value="2">Former Smoker</option>
+        <option value="3">Ever Smoker</option>
+        <option value="4">Never Smoked</option>
+        <option value="5">Not Current</option>
+      </select>
+
+      <label for="bmi">BMI</label>
+      <input type="text" name="bmi" placeholder="Enter BMI" required>
+
+      <label for="hba1c">HbA1c Level</label>
+      <input type="text" name="hba1c" placeholder="Enter HbA1c Level" required>
+
+      <label for="glucose">Blood Glucose Level</label>
+      <input type="text" name="glucose" placeholder="Enter Blood Glucose Level" required>
+
+      <button type="submit">
+        <i class="fa-solid fa-magnifying-glass-chart"></i> Predict
+      </button>
+    </form>
+    <div class="result">{{ prediction_text }}</div>
+  </div>
+
+  <!-- About Section -->
+  <div id="about" class="container section">
+    <div class="title">About Diabetes</div>
+    <h2>What is Diabetes?</h2>
+    <p>Diabetes is a condition that occurs when your blood glucose is too high. Our system helps assess early signs based on health indicators.</p>
+  </div>
+
+  <!-- Contact Section -->
+  <div id="contact" class="container section">
+    <div class="title">Contact Us</div>
+    <h2>Get in Touch</h2>
+    <p>For support, email us at <strong>support@diapredict.com</strong> or call +91 12345 67890.</p>
+  </div>
+
+  <!-- JavaScript for Section Switching + Auto-show Prediction -->
+  <script>
+    function showSection(id) {
+      const sections = document.querySelectorAll('.section');
+      sections.forEach(section => section.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      const predictionText = "{{ prediction_text | safe }}";
+      if (predictionText && predictionText.trim() !== "") {
+        showSection('prediction');
+      }
+    });
+  </script>
 </body>
 </html>
