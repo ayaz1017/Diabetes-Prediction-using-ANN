@@ -8,8 +8,8 @@ app = Flask(__name__)
 model = tf.keras.models.load_model("diabetes_model.h5")
 
 def predict_diabetes(features):
-    features_array = np.array([features]).astype(float)  # Convert input to NumPy array
-    prediction = model.predict(features_array)[0][0]  # Get the prediction
+    features_array = np.array([features]).astype(float)
+    prediction = model.predict(features_array)[0][0]
     return prediction
 
 @app.route('/')
@@ -41,4 +41,3 @@ def predict():
 
 if __name__ == '__main__':
     app.run(debug=True)
-
